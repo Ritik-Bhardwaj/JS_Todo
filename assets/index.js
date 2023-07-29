@@ -56,10 +56,10 @@ function deleteCheck(e) {
         const todo = item.parentElement;
         // Animation
         todo.classList.add('fall');
-        removeLocalTodos(todo);
-       todo.addEventListener('transitioned', function(){
+        setInterval( () =>{
         todo.remove();
-       });
+        },500);
+        removeLocalTodos(todo);
     }
 
     // Check Mark
@@ -70,7 +70,7 @@ function deleteCheck(e) {
 }
 
 function filterTodo(e){
-    const todos = todoList.childNodes;
+    const todos = todoList.querySelectorAll('.todo');
     todos.forEach(function(todo){
       switch(e.target.value){
         case "all":
@@ -84,7 +84,7 @@ function filterTodo(e){
             todo.style.display ="none";
         }
         break;
-        case "uncompleted":
+        case "incompleted":
             if(!todo.classList.contains('completed')){
                 todo.style.display ='flex';
         }
@@ -108,7 +108,7 @@ function saveLocalTodo(todo){
     }
 
     todos.push(todo);
-    localStorage.getItem("todos", JSON.stringify(todos));
+    localStorage.setItem("todos", JSON.stringify(todos));
 
 }
 
